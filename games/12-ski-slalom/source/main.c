@@ -73,7 +73,7 @@ int main(int argc, char **argv) {
 
 		struct expansion_t exp;
 		WPAD_Expansion(WPAD_CHAN_0, &exp);
-		int board_connected = (exp.type == WPAD_EXP_BALANCE_BOARD);
+		int board_connected = (exp.type == WPAD_BALANCE_BOARD);
 
 		printf("\x1b[8;0H");
 		if (!board_connected) {

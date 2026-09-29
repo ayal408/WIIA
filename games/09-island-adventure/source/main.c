@@ -101,7 +101,7 @@ int main(int argc, char **argv) {
 
 		struct expansion_t exp;
 		WPAD_Expansion(WPAD_CHAN_0, &exp);
-		int board_connected = (exp.type == WPAD_EXP_BALANCE_BOARD);
+		int board_connected = (exp.type == WPAD_BALANCE_BOARD);
 
 		int detected_lane_dir = 0; /* -1 left, 0 center, +1 right */
 		if (board_connected) {

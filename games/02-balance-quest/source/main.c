@@ -71,7 +71,7 @@ int main(int argc, char **argv) {
 
 		printf("\x1b[7;0H");
 
-		if (exp.type == WPAD_EXP_BALANCE_BOARD) {
+		if (exp.type == WPAD_BALANCE_BOARD) {
 			float tl = exp.wb.tl;
 			float tr = exp.wb.tr;
 			float bl = exp.wb.bl;
