@@ -27,6 +27,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install libogc / Wii dev libraries
+        run: |
+          (sudo pacman -Sy --noconfirm libogc2 libfat-ogc wiiuse 2>&1) || \
+          (pacman -Sy --noconfirm libogc2 libfat-ogc wiiuse 2>&1) || \
+          (sudo dkp-pacman -Sy --noconfirm libogc2 libfat-ogc wiiuse 2>&1) || \
+          (dkp-pacman -Sy --noconfirm libogc2 libfat-ogc wiiuse 2>&1)
+          echo "DEVKITPRO=$DEVKITPRO DEVKITPPC=$DEVKITPPC"
+          ls "$DEVKITPRO" 2>&1 || true
+          find "$DEVKITPRO" -maxdepth 2 -iname 'libogc*' 2>&1 || true
+
       - name: Build ${{ matrix.game }}
         working-directory: ${{ matrix.game }}
         run: make -j$(nproc)
