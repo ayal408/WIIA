@@ -19,7 +19,7 @@ CXXFLAGS	=	$(CFLAGS)
 LDFLAGS	=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
 
 #---------------------------------------------------------------------------------
-LIBS	:= -lwiiuse -lbte -logc -lm
+LIBS	:= -lwiikeyboard -lwiiuse -lbte -logc -lm
 
 #---------------------------------------------------------------------------------
 LIBDIRS	:=
