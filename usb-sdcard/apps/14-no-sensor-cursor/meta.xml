@@ -1,0 +1,8 @@
+<app version="1">
+  <name>No-Sensor Cursor</name>
+  <coder>ayal408</coder>
+  <version>1.0</version>
+  <release_date>20260929000000</release_date>
+  <short_description>Mouse-style cursor without needing the sensor bar</short_description>
+  <long_description>Move a cursor with the D-pad (or faster with a Nunchuk stick) and click with A to hit the target - no IR sensor bar required at all.</long_description>
+</app>

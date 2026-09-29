@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Wii Homebrew Games</title>
-<meta name="description" content="12 משחקי הומברו מקוריים ל-Wii, עם Wii Remote ו-Balance Board">
+<meta name="description" content="14 משחקי הומברו מקוריים ל-Wii, עם Wii Remote ו-Balance Board">
 <style>
   :root {
     --bg: #f5f3ef;
@@ -155,7 +155,7 @@
 
 <header>
   <h1>🎮 Wii Homebrew Games</h1>
-  <p class="tag">12 משחקי הומברו מקוריים ל-Wii, שנכתבו ב-C עם devkitPro. משתמשים ב-Wii Remote
+  <p class="tag">14 משחקי הומברו מקוריים ל-Wii, שנכתבו ב-C עם devkitPro. משתמשים ב-Wii Remote
     (מצביע IR, תאוצה, כפתורים) וב-Wii Balance Board. רצים על Wii אמיתי עם Homebrew Channel,
     או באמולטור Dolphin.</p>
 
@@ -253,6 +253,10 @@ const games = [
     desc: "6 \"חורים\" קבועים מוצגים על המסך. חפרפרת אקראית קופצת מאחד מהחורים לזמן קצר ובלתי צפוי. מכוונים את השלט ולוחצים A עליה לפני שהיא חוזרת למטה. חפרפרת שלא נחבטה בזמן נספרת בנפרד כ\"פוספסה\", כך שאפשר לעקוב אחרי הדיוק." },
   { n: "12", name: "Ski Slalom", controls: "הטיית Balance Board שמאלה/ימינה להיגוי, קדימה למהירות, HOME בשלט מסונכרן", tags: ["Balance Board", "Racing"],
     desc: "שערי סלאלום מגיעים ברצף מלמעלה עם פער פתוח באמצע כל שער. מטים משקל שמאלה/ימינה על ה-Balance Board כדי להזיז את השחקן לתוך הפער של כל שער שמגיע. הטיה קדימה מגבירה את המהירות - יותר נקודות, אבל גם פחות זמן תגובה לשער הבא. יש 3 חיים; פספוס שער עולה בחיים." },
+  { n: "13", name: "USB Keyboard Demo", controls: "מקלדת USB רגילה מחוברת ל-Wii, HOME/ESC ליציאה", tags: ["Keyboard", "Utility"],
+    desc: "מחברים מקלדת USB רגילה (חוטית) ליציאת ה-USB של הקונסולה, ומקלידים - האותיות מופיעות על המסך בזמן אמת. Backspace מוחק תו אחרון, Enter מנקה שורה. לא \"משחק\" קלאסי, אלא הדגמה שימושית שאפשר להשתמש בה בכל משחק אחר שדורש הקלדת טקסט (למשל שם לשיא ניקוד)." },
+  { n: "14", name: "No-Sensor Cursor", controls: "D-pad להזזה (או מקל Nunchuk), A ללחיצה, HOME ליציאה", tags: ["No Sensor Bar", "Utility"],
+    desc: "\"עכבר\" חלופי שלא צריך בכלל פס חיישנים (Sensor Bar) - מזיזים סמן על המסך עם ה-D-pad של השלט, ואם מחובר Nunchuk אפשר להאיץ את התנועה עם המקל האנלוגי שלו. לוחצים A כדי לפגוע במטרה. שימושי כשאין פס חיישנים זמין, או כתחליף לבקרת מצביע IR." },
 ];
 
 const grid = document.getElementById("grid");

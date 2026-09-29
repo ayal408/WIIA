@@ -35,6 +35,10 @@ jobs:
             slug: 11-whack-a-mole
           - game: games/12-ski-slalom
             slug: 12-ski-slalom
+          - game: games/13-usb-keyboard
+            slug: 13-usb-keyboard
+          - game: games/14-no-sensor-cursor
+            slug: 14-no-sensor-cursor
           - game: games/template
             slug: template
     steps:

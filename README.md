@@ -28,6 +28,8 @@ games/
   10-connect-four/      4 בשורה צבעוני לשני שחקנים על אותו שלט
   11-whack-a-mole/      "היכה את החפרפרת" עם מצביע ה-IR
   12-ski-slalom/        סלאלום סקי - היגוי רציף עם Balance Board
+  13-usb-keyboard/      תמיכה במקלדת USB אמיתית המחוברת ל-Wii
+  14-no-sensor-cursor/  סמן "עכבר" בלי חיישן IR - נשלט עם ה-D-pad / Nunchuk
   template/             שלד ריק להתחלת משחק חדש
 usb-sdcard/apps/        תיקיית apps מוכנה להעתקה לכרטיס SD / USB (ראו "הרצה" למטה)
 .github/workflows/      בנייה אוטומטית ב-CI (Docker של devkitPro) לכל משחק

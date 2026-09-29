@@ -1,0 +1,8 @@
+<app version="1">
+  <name>USB Keyboard Demo</name>
+  <coder>ayal408</coder>
+  <version>1.0</version>
+  <release_date>20260929000000</release_date>
+  <short_description>Type on a real USB keyboard plugged into the Wii</short_description>
+  <long_description>Plug a USB keyboard into the Wii's USB port and type - characters are echoed to the screen. Demonstrates libogc's USB keyboard support.</long_description>
+</app>
