@@ -29,11 +29,10 @@ jobs:
 
       - name: Diagnose devkitPro / libogc layout
         run: |
-          echo "DEVKITPRO=$DEVKITPRO DEVKITPPC=$DEVKITPPC"
-          ls "$DEVKITPRO" || true
-          find "$DEVKITPRO" -maxdepth 2 -iname 'libogc*' || true
-          find / -maxdepth 6 -iname 'gccore.h' 2>/dev/null || true
-          dkp-pacman -Q 2>&1 | grep -i -E 'libogc|wii' || true
+          echo "--- wii_rules content ---"
+          cat "$DEVKITPPC/wii_rules" || true
+          echo "--- base_rules content ---"
+          cat "$DEVKITPPC/base_rules" || true
 
       - name: Build ${{ matrix.game }}
         working-directory: ${{ matrix.game }}
