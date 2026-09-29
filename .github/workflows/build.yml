@@ -14,6 +14,7 @@ jobs:
           - games/01-pointer-shooter
           - games/02-balance-quest
           - games/03-swing-slash
+          - games/04-hop-run
           - games/template
     steps:
       - uses: actions/checkout@v4

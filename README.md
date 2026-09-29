@@ -17,6 +17,7 @@ games/
   01-pointer-shooter/   משחק מצביע IR - כוונון ויריה למטרות
   02-balance-quest/     משחק Balance Board - הטיית משקל לפי כיוון מבוקש
   03-swing-slash/       משחק תאוצה - נפנוף ה-Wii Remote כדי "לחתוך" אויבים
+  04-hop-run/           משחק פלטפורמר מקורי (ריצה אינסופית וקפיצות מעל מכשולים)
   template/             שלד ריק להתחלת משחק חדש
 .github/workflows/      בנייה אוטומטית ב-CI (Docker של devkitPro) לכל משחק
 ```
