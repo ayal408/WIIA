@@ -4,63 +4,123 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Wii Homebrew Games</title>
-<meta name="description" content="14 משחקי הומברו מקוריים ל-Wii, עם Wii Remote ו-Balance Board">
+<meta name="description" content="14 משחקי הומברו מקוריים ל-Wii, עם Wii Remote, Balance Board ומקלדת USB">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #f5f3ef;
+    --bg-alt: #ece8e0;
     --bg-card: #ffffff;
     --text: #1c1c1c;
     --text-muted: #5b5b5b;
     --accent: #2a6f4f;
+    --accent-rgb: 42,111,79;
     --accent-2: #c94f4f;
+    --accent-3: #c98a2c;
     --border: #e3e0d8;
+    --shadow: 0 2px 10px rgba(0,0,0,0.06);
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       --bg: #14171a;
+      --bg-alt: #1a1e22;
       --bg-card: #1e2226;
       --text: #f0f0ee;
       --text-muted: #a9a9a4;
       --accent: #4fae82;
+      --accent-rgb: 79,174,130;
       --accent-2: #e57a7a;
+      --accent-3: #e0ab5c;
       --border: #2c3136;
+      --shadow: 0 2px 14px rgba(0,0,0,0.35);
     }
   }
   :root[data-theme="dark"] {
     --bg: #14171a;
+    --bg-alt: #1a1e22;
     --bg-card: #1e2226;
     --text: #f0f0ee;
     --text-muted: #a9a9a4;
     --accent: #4fae82;
+    --accent-rgb: 79,174,130;
     --accent-2: #e57a7a;
+    --accent-3: #e0ab5c;
     --border: #2c3136;
+    --shadow: 0 2px 14px rgba(0,0,0,0.35);
   }
 
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
     margin: 0;
     background: var(--bg);
     color: var(--text);
-    font-family: -apple-system, "Segoe UI", Arial, sans-serif;
-    line-height: 1.6;
+    font-family: "Rubik", -apple-system, "Segoe UI", Arial, sans-serif;
+    line-height: 1.65;
   }
-  header {
-    padding: 48px 20px 28px;
+  a { color: var(--accent); }
+
+  /* ---------- Hero ---------- */
+  header.hero {
+    padding: 64px 20px 40px;
     text-align: center;
+    background:
+      radial-gradient(60% 100% at 15% 0%, rgba(var(--accent-rgb),0.14), transparent 60%),
+      radial-gradient(50% 90% at 85% 10%, rgba(201,79,79,0.10), transparent 60%),
+      var(--bg);
     border-bottom: 1px solid var(--border);
   }
-  header h1 { margin: 0 0 8px; font-size: 2.1rem; }
-  header p.tag { color: var(--text-muted); max-width: 640px; margin: 0 auto; }
+  .hero-icon {
+    width: 64px; height: 64px;
+    margin: 0 auto 18px;
+    display: block;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+  }
+  header.hero h1 {
+    margin: 0 0 10px;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+  header.hero p.tag {
+    color: var(--text-muted);
+    max-width: 680px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+  }
+
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 26px;
+  }
+  .stat {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 18px;
+    box-shadow: var(--shadow);
+    min-width: 100px;
+  }
+  .stat b { display: block; font-size: 1.3rem; color: var(--accent); }
+  .stat span { font-size: 0.78rem; color: var(--text-muted); }
 
   .notice {
     max-width: 760px;
-    margin: 20px auto 0;
+    margin: 26px auto 0;
     padding: 14px 18px;
     border-radius: 10px;
     background: color-mix(in srgb, var(--accent-2) 12%, var(--bg-card));
     border: 1px solid color-mix(in srgb, var(--accent-2) 35%, var(--border));
     font-size: 0.92rem;
     color: var(--text);
+    text-align: right;
   }
 
   .links {
@@ -68,96 +128,214 @@
     gap: 10px;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 22px;
+    margin-top: 24px;
   }
   .links a {
-    display: inline-block;
-    padding: 9px 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
     border-radius: 999px;
     background: var(--accent);
     color: white;
     text-decoration: none;
-    font-size: 0.92rem;
+    font-size: 0.93rem;
+    font-weight: 500;
+    box-shadow: var(--shadow);
+    transition: transform 0.15s ease;
   }
+  .links a:hover { transform: translateY(-1px); }
   .links a.secondary {
     background: transparent;
     color: var(--accent);
     border: 1px solid var(--accent);
+    box-shadow: none;
   }
 
+  /* ---------- Layout ---------- */
   main {
-    max-width: 1080px;
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 36px 20px 64px;
+    padding: 44px 20px 64px;
+  }
+  h2.section-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0 0 18px;
+  }
+  h2.section-title .n { color: var(--accent); }
+
+  /* ---------- Filters ---------- */
+  .filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 22px;
+  }
+  .filter-btn {
+    font-family: inherit;
+    font-size: 0.85rem;
+    padding: 7px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
   }
 
+  /* ---------- Game grid ---------- */
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
     gap: 18px;
   }
 
   .card {
     background: var(--bg-card);
     border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 20px;
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: var(--shadow);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+  }
+  .card .card-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .card .icon {
+    font-size: 1.6rem;
+    width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    border-radius: 12px;
+    flex-shrink: 0;
   }
   .card .num {
-    display: inline-block;
-    font-size: 0.78rem;
+    display: block;
+    font-size: 0.72rem;
     color: var(--text-muted);
     letter-spacing: 0.04em;
   }
-  .card h3 { margin: 4px 0 8px; font-size: 1.15rem; }
-  .card p.desc { margin: 0 0 12px; color: var(--text-muted); font-size: 0.94rem; line-height: 1.65; }
+  .card h3 { margin: 0; font-size: 1.1rem; }
+  .card p.desc { margin: 0 0 14px; color: var(--text-muted); font-size: 0.92rem; line-height: 1.65; flex-grow: 1; }
   .card .controls {
-    font-size: 0.85rem;
+    font-size: 0.84rem;
     color: var(--text);
     background: color-mix(in srgb, var(--accent) 8%, transparent);
     border-radius: 8px;
-    padding: 8px 10px;
+    padding: 9px 11px;
   }
   .card .controls b { color: var(--accent); }
 
-  .tags { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .tags { margin-top: 12px; display: flex; gap: 6px; flex-wrap: wrap; }
   .tag {
-    font-size: 0.72rem;
-    padding: 3px 9px;
+    font-size: 0.70rem;
+    padding: 3px 10px;
     border-radius: 999px;
     border: 1px solid var(--border);
     color: var(--text-muted);
   }
 
-  section.howto {
-    margin-top: 48px;
-    padding-top: 28px;
-    border-top: 1px solid var(--border);
+  /* ---------- Info sections ---------- */
+  section.info {
+    margin-top: 56px;
   }
-  section.howto h2 { font-size: 1.3rem; }
-  section.howto ol { color: var(--text-muted); }
-  section.howto code {
+  .panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 26px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+  }
+  .panel h3 { margin: 0 0 12px; font-size: 1.1rem; }
+  .panel p, .panel li { color: var(--text-muted); }
+  .panel ol, .panel ul { margin: 0; padding-inline-start: 22px; }
+  .panel li { margin-bottom: 8px; }
+  .panel code {
     background: color-mix(in srgb, var(--accent) 10%, transparent);
     padding: 2px 6px;
     border-radius: 6px;
     font-size: 0.9em;
+    color: var(--text);
   }
+
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin-top: 4px;
+  }
+  .tech-item {
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+  }
+  .tech-item b { display: block; margin-bottom: 4px; color: var(--accent); font-size: 0.92rem; }
+  .tech-item span { font-size: 0.85rem; color: var(--text-muted); }
+
+  .faq details {
+    border-bottom: 1px solid var(--border);
+    padding: 14px 0;
+  }
+  .faq details:last-child { border-bottom: none; }
+  .faq summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.98rem;
+    list-style: none;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::before {
+    content: "+";
+    display: inline-block;
+    width: 1.1em;
+    color: var(--accent);
+    font-weight: 800;
+  }
+  .faq details[open] summary::before { content: "\2212"; }
+  .faq p { margin: 10px 0 0 1.6em; color: var(--text-muted); font-size: 0.92rem; }
 
   footer {
     text-align: center;
-    padding: 24px 20px 40px;
+    padding: 30px 20px 44px;
     color: var(--text-muted);
     font-size: 0.85rem;
   }
+  footer a { color: inherit; text-decoration: underline; }
 </style>
 </head>
 <body>
 
-<header>
-  <h1>🎮 Wii Homebrew Games</h1>
+<header class="hero">
+  <img class="hero-icon" src="favicon.svg" alt="">
+  <h1>Wii Homebrew Games</h1>
   <p class="tag">14 משחקי הומברו מקוריים ל-Wii, שנכתבו ב-C עם devkitPro. משתמשים ב-Wii Remote
-    (מצביע IR, תאוצה, כפתורים) וב-Wii Balance Board. רצים על Wii אמיתי עם Homebrew Channel,
-    או באמולטור Dolphin.</p>
+    (מצביע IR, תאוצה, כפתורים), ב-Wii Balance Board, ואפילו במקלדת USB. רצים על Wii אמיתי
+    (או Wii U במצב vWii) עם Homebrew Channel, או באמולטור Dolphin.</p>
+
+  <div class="stats">
+    <div class="stat"><b>14</b><span>משחקים</span></div>
+    <div class="stat"><b>100%</b><span>קוד מקורי</span></div>
+    <div class="stat"><b>3</b><span>סוגי בקרים</span></div>
+    <div class="stat"><b>0₪</b><span>עלות</span></div>
+  </div>
 
   <div class="notice">
     <b>הערת זכויות יוצרים:</b> כל המשחקים כאן מקוריים ונכתבו במיוחד לריפו הזה. אין כאן קבצי
@@ -165,110 +343,193 @@
   </div>
 
   <div class="links">
-    <a href="https://github.com/ayal408/WIIA">קוד המקור ב-GitHub</a>
-    <a class="secondary" href="https://github.com/ayal408/WIIA/actions">בניות אוטומטיות (Actions)</a>
+    <a href="https://github.com/ayal408/WIIA">💻 קוד המקור ב-GitHub</a>
+    <a class="secondary" href="https://github.com/ayal408/WIIA/actions">⚙️ בניות אוטומטיות (Actions)</a>
+    <a class="secondary" href="#faq">❓ שאלות נפוצות</a>
   </div>
 </header>
 
 <main>
+  <h2 class="section-title"><span class="n">01.</span> המשחקים</h2>
+
+  <div class="filters" id="filters"></div>
   <div class="grid" id="grid"></div>
 
-  <section class="howto">
-    <h2>איך מעבירים את המשחקים לWii בפועל</h2>
-    <ol>
-      <li>בטאב <a href="https://github.com/ayal408/WIIA/actions">Actions</a> בריפו, פתחו את
-        ה-run האחרון שהצליח (סימן ✓ ירוק) והורידו את ה-artifact בשם
-        <code>wii-usb-apps</code>. זהו קובץ zip שנבנה אוטומטית מהקוד - אין צורך להתקין שום
-        דבר במחשב כדי לקבל אותו.</li>
-      <li>חלצו את ה-zip - תקבלו תיקיית <code>apps</code> מוכנה, ובתוכה תת-תיקייה לכל משחק
-        (למשל <code>apps/01-pointer-shooter</code>), וכל אחת כבר מכילה את קובץ המשחק
-        (<code>boot.dol</code>) ואת שם/תיאור המשחק (<code>meta.xml</code>).</li>
-      <li>העתיקו את כל תיקיית <code>apps</code> לשורש כרטיס ה-SD או ה-USB שלכם, כך שהנתיב
-        יהיה <code>SD:/apps/...</code> (או <code>USB:/apps/...</code>) - לא בתוך תיקייה
-        נוספת.</li>
-      <li>הכניסו את הכרטיס ל-Wii ופתחו את ה-Homebrew Channel. כל משחק שהעתקתם יופיע ברשימה
-        עם שם ותיאור, ואפשר לבחור ולהריץ אותו ישירות.</li>
-      <li>לא חייבים להעתיק את כל 12 המשחקים - אפשר לבחור רק חלק מתת-התיקיות בתוך
-        <code>apps</code>.</li>
-    </ol>
+  <section class="info">
+    <h2 class="section-title"><span class="n">02.</span> איך מעבירים את המשחקים ל-Wii בפועל</h2>
+    <div class="panel">
+      <ol>
+        <li>בטאב <a href="https://github.com/ayal408/WIIA/actions">Actions</a> בריפו, פתחו את
+          ה-run האחרון שהצליח (סימן ✓ ירוק) והורידו את ה-artifact בשם
+          <code>wii-usb-apps</code>. זהו קובץ zip שנבנה אוטומטית מהקוד - אין צורך להתקין שום
+          דבר במחשב כדי לקבל אותו.</li>
+        <li>חלצו את ה-zip - תקבלו תיקיית <code>apps</code> מוכנה, ובתוכה תת-תיקייה לכל משחק
+          (למשל <code>apps/01-pointer-shooter</code>), וכל אחת כבר מכילה את קובץ המשחק
+          (<code>boot.dol</code>) ואת שם/תיאור המשחק (<code>meta.xml</code>).</li>
+        <li>העתיקו את כל תיקיית <code>apps</code> לשורש כרטיס ה-SD או ה-USB שלכם, כך שהנתיב
+          יהיה <code>SD:/apps/...</code> (או <code>USB:/apps/...</code>) - לא בתוך תיקייה
+          נוספת.</li>
+        <li>הכניסו את הכרטיס ל-Wii (או Wii U במצב vWii) ופתחו את ה-Homebrew Channel. כל משחק
+          שהעתקתם יופיע ברשימה עם שם ותיאור, ואפשר לבחור ולהריץ אותו ישירות.</li>
+        <li>לא חייבים להעתיק את כל 14 המשחקים - אפשר לבחור רק חלק מתת-התיקיות בתוך
+          <code>apps</code>.</li>
+      </ol>
+    </div>
   </section>
 
-  <section class="howto">
-    <h2>איך מחברים ומסנכרנים Wii Remote ו-Balance Board</h2>
-    <p style="color:var(--text-muted)">
-      פותחים את המכסה בתחתית ה-Wii Remote (או ה-Balance Board) ולוחצים על כפתור ה-SYNC
-      האדום הקטן שבפנים. תוך כמה שניות לוחצים גם על כפתור ה-SYNC בקונסולת ה-Wii עצמה
-      (מתחת למכסה כרטיס ה-SD בדגמים חדשים, או ליד יציאות ה-USB בדגמים ישנים). הפעולה
-      צריכה להתבצע רק פעם אחת לכל בקר - הוא "זוכר" את הקונסולה מכאן והלאה ומתחבר אוטומטית
-      כשמדליקים אותו ליד ה-Wii.
-    </p>
-    <p style="color:var(--text-muted)">
-      ה-Balance Board מחובר בדיוק באותה שיטה (יש לו כפתור SYNC דומה בתא הסוללות), אבל
-      מבחינת המשחק הוא מזוהה כסוג שונה של בקר ("הרחבה") עם 4 חיישני משקל - קדמי-שמאל,
-      קדמי-ימין, אחורי-שמאל ואחורי-ימין - ולא כשלט רגיל. משחקים שדורשים Balance Board
-      (02, 09, 12) יציגו הודעת המתנה עד שהוא מסתנכרן ומזוהה.
-    </p>
+  <section class="info">
+    <h2 class="section-title"><span class="n">03.</span> חיבור וסנכרון Wii Remote ו-Balance Board</h2>
+    <div class="panel">
+      <p>
+        פותחים את המכסה בתחתית ה-Wii Remote (או ה-Balance Board) ולוחצים על כפתור ה-SYNC
+        האדום הקטן שבפנים. תוך כמה שניות לוחצים גם על כפתור ה-SYNC בקונסולת ה-Wii עצמה
+        (מתחת למכסה כרטיס ה-SD בדגמים חדשים, או ליד יציאות ה-USB בדגמים ישנים). הפעולה
+        צריכה להתבצע רק פעם אחת לכל בקר - הוא "זוכר" את הקונסולה מכאן והלאה ומתחבר אוטומטית
+        כשמדליקים אותו ליד ה-Wii.
+      </p>
+      <p>
+        ה-Balance Board מחובר בדיוק באותה שיטה (יש לו כפתור SYNC דומה בתא הסוללות), אבל
+        מבחינת המשחק הוא מזוהה כסוג שונה של בקר ("הרחבה") עם 4 חיישני משקל - קדמי-שמאל,
+        קדמי-ימין, אחורי-שמאל ואחורי-ימין - ולא כשלט רגיל. משחקים שדורשים Balance Board
+        (02, 09, 12) יציגו הודעת המתנה עד שהוא מסתנכרן ומזוהה.
+      </p>
+    </div>
   </section>
 
-  <section class="howto">
-    <h2>הערות כלליות שחלות על כל 12 המשחקים</h2>
-    <ul style="color:var(--text-muted)">
-      <li>כפתור <b>HOME</b> תמיד יוצא חזרה ל-Homebrew Channel, בכל משחק.</li>
-      <li>אין שמירת הישגים/ניקוד בין הרצות - כל משחק מתחיל מאפס בכל פעם שפותחים אותו מחדש.</li>
-      <li>כל המשחקים נכתבו ב-C עם devkitPro/libogc ורצים גם על Wii אמיתי (עם Homebrew
-        Channel) וגם באמולטור <a href="https://dolphin-emu.org/">Dolphin</a>.</li>
-      <li>אפשר לראות את קוד המקור המלא (עם הסברים בראש כל קובץ) בתיקיית
-        <code>games/&lt;שם-המשחק&gt;/source/main.c</code> בריפו.</li>
-    </ul>
+  <section class="info">
+    <h2 class="section-title"><span class="n">04.</span> מה מאחורי הקלעים - הטכנולוגיה</h2>
+    <div class="panel">
+      <p>הריפו הזה כתוב כולו ב-C, עם כלים חופשיים ופתוחים לפיתוח הומברו ל-Wii:</p>
+      <div class="tech-grid">
+        <div class="tech-item"><b>devkitPro / devkitPPC</b><span>ה-toolchain (מהדר C) שמייצר קוד שרץ על מעבד ה-PowerPC של ה-Wii.</span></div>
+        <div class="tech-item"><b>libogc</b><span>ספריית הליבה שנותנת גישה לווידאו, קלט, וכל חומרת הקונסולה - כולל WPAD, ה-API לקריאת Wii Remote ו-Balance Board.</span></div>
+        <div class="tech-item"><b>libwiikeyboard</b><span>ספרייה נפרדת שמוסיפה תמיכה במקלדות USB רגילות, בשימוש במשחק 13.</span></div>
+        <div class="tech-item"><b>GitHub Actions</b><span>כל push בונה את כל 14 המשחקים בתוך container רשמי של devkitPro, ומייצר את חבילת ה-USB המוכנה אוטומטית.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="info">
+    <h2 class="section-title"><span class="n">05.</span> הערות כלליות לכל המשחקים</h2>
+    <div class="panel">
+      <ul>
+        <li>כפתור <b>HOME</b> תמיד יוצא חזרה ל-Homebrew Channel, בכל משחק.</li>
+        <li>אין שמירת הישגים/ניקוד בין הרצות - כל משחק מתחיל מאפס בכל פעם שפותחים אותו מחדש.</li>
+        <li>שלושה משחקים (01, 06, 11) עובדים גם <b>בלי פס חיישנים</b> - הם עוברים אוטומטית
+          לשליטה עם D-pad/Nunchuk כשאין קליטת IR.</li>
+        <li>אפשר לראות את קוד המקור המלא (עם הסברים בראש כל קובץ) בתיקיית
+          <code>games/&lt;שם-המשחק&gt;/source/main.c</code> בריפו.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="info" id="faq">
+    <h2 class="section-title"><span class="n">06.</span> שאלות נפוצות</h2>
+    <div class="panel faq">
+      <details open>
+        <summary>האם זה עובד גם על Wii U ולא רק Wii רגיל?</summary>
+        <p>כן. ל-Wii U יש מצב תאימות לאחור בשם <b>vWii</b> שמריץ Homebrew Channel זהה לחלוטין
+          לזה של ה-Wii המקורי, ומשתמש באותו פורמט <code>.dol</code>/<code>apps</code> בדיוק.
+          כל התהליך זהה.</p>
+      </details>
+      <details>
+        <summary>האם זה חוקי?</summary>
+        <p>כן - כל המשחקים כאן מקוריים לגמרי, ללא שימוש בקוד או גרפיקה של נינטندו. ה-Homebrew
+          Channel עצמו הוא כלי רשמי וחוקי להרצת תוכנה עצמאית על ה-Wii שלכם (softmod, לא
+          פריצה של משחקים מסחריים). הריפו לא מכיל ולא יכיל ROM/ISO של משחקים מסחריים.</p>
+      </details>
+      <details>
+        <summary>אני צריך חיבור אינטרנט כדי לשחק?</summary>
+        <p>לא. אינטרנט נדרש רק פעם אחת כדי להוריד את חבילת ה-<code>wii-usb-apps</code>
+          ולהעתיק אותה לכרטיס SD/USB. אחר כך המשחקים רצים לגמרי לוקאלית על ה-Wii.</p>
+      </details>
+      <details>
+        <summary>איך מוסיפים משחק חדש משלי?</summary>
+        <p>מעתיקים את תיקיית <code>games/template</code>, עורכים את <code>source/main.c</code>
+          (כל הבוילרפלייט - אתחול וידאו, WPAD, לולאת המשחק - כבר שם), ומוסיפים את התיקייה
+          החדשה למטריצת ה-build ב-<code>.github/workflows/build.yml</code> כדי שתיבנה
+          אוטומטית. פירוט מלא ב-README של הריפו.</p>
+      </details>
+      <details>
+        <summary>מה זה בעצם WPAD?</summary>
+        <p>ה-API של libogc שדרכו קוראים כל קלט מה-Wii Remote ומה-Balance Board - כפתורים,
+          מצביע IR, תאוצה (נפנוף), ו"הרחבות" מחוברות כמו Nunchuk או Balance Board. כל משחק
+          בריפו משתמש בו.</p>
+      </details>
+    </div>
   </section>
 </main>
 
 <footer>
-  נבנה עם devkitPro / libogc · <a href="https://github.com/ayal408/WIIA" style="color:inherit">ayal408/WIIA</a>
+  נבנה עם devkitPro / libogc · <a href="https://github.com/ayal408/WIIA">ayal408/WIIA</a> ·
+  <a href="https://github.com/ayal408/WIIA/blob/main/HOWTOPLAY.md">מדריך איך משחקים</a>
 </footer>
 
 <script>
 const games = [
-  { n: "01", name: "Pointer Shooter", controls: "מצביע Wii Remote (או D-pad/Nunchuk בלי חיישן) + A ליריה, HOME ליציאה", tags: ["IR Pointer", "No Sensor Bar fallback"],
+  { n: "01", name: "Pointer Shooter", icon: "🎯", controls: "מצביע Wii Remote (או D-pad/Nunchuk בלי חיישן) + A ליריה, HOME ליציאה", tags: ["IR Pointer", "בלי חיישן"],
     desc: "על המסך מופיעה מטרה עגולה במיקום אקראי. מכוונים את השלט אליה ולוחצים A כשהכוונת (crosshair) בתוך המעגל. פגיעה = נקודה + מטרה חדשה במיקום חדש. פספוס נספר בנפרד, כדי לראות כמה מדויקים אתם. בלי פס חיישנים? המשחק עובר אוטומטית לשליטה עם D-pad/Nunchuk." },
-  { n: "02", name: "Balance Quest", controls: "Wii Balance Board (הטיית משקל), HOME בשלט מסונכרן", tags: ["Balance Board"],
+  { n: "02", name: "Balance Quest", icon: "⚖️", controls: "Wii Balance Board (הטיית משקל), HOME בשלט מסונכרן", tags: ["Balance Board"],
     desc: "המשחק מבקש כיוון (קדימה / אחורה / שמאלה / ימינה / מרכז) - צריך להטות את המשקל על הלוח בהתאם, תוך כ-3 שניות. הטיה נכונה = נקודה + כיוון חדש נבחר אקראית. יש חלון זמן (טיימר) לכל סבב, כך שצריך להגיב מהר." },
-  { n: "03", name: "Swing Slash", controls: "נפנוף חד של ה-Wii Remote, HOME ליציאה", tags: ["Accelerometer"],
+  { n: "03", name: "Swing Slash", icon: "⚔️", controls: "נפנוף חד של ה-Wii Remote, HOME ליציאה", tags: ["תאוצה"],
     desc: "מדי פעם מופיע \"אויב\" על המסך - צריך לנפנף את השלט בחוזקה (לא רק ללחוץ כפתור!) לפני שנגמר הזמן, כדי \"לחתוך\" אותו. המשחק קורא בזמן אמת את חיישן התאוצה בתוך השלט כדי לזהות נפנוף אמיתי." },
-  { n: "04", name: "Hop and Run", controls: "A לקפיצה, HOME ליציאה", tags: ["Platformer"],
+  { n: "04", name: "Hop and Run", icon: "🏃", controls: "A לקפיצה, HOME ליציאה", tags: ["פלטפורמר"],
     desc: "הדמות רצה אוטומטית קדימה ללא הפסקה; מכשולים מגיעים מימין למסך בקצב הולך וגובר. לוחצים A ברגע הנכון כדי לקפוץ מעליהם. ככל שהניקוד עולה, גם המהירות עולה. נגיעה במכשול מסיימת את הריצה - אפשר להתחיל שוב מיד עם A." },
-  { n: "05", name: "Quiz Buzzer", controls: "עד 4 שלטי Wii Remote, 1 לפתיחת סבב, A לבאזז, HOME ליציאה", tags: ["Party", "Multiplayer"],
+  { n: "05", name: "Quiz Buzzer", icon: "🔔", controls: "עד 4 שלטי Wii Remote, 1 לפתיחת סבב, A לבאזז, HOME ליציאה", tags: ["מסיבה", "מולטיפלייר"],
     desc: "משחק מסיבה עד 4 שחקנים, כל אחד מחזיק שלט משלו. שחקן 1 פותח סבב עם כפתור 1, ואז כולם מנסים ללחוץ A הכי מהר שאפשר - הראשון שלוחץ מקבל את הנקודה של הסבב. מצוין למשחק קבוצתי מול הטלוויזיה." },
-  { n: "06", name: "Duck Hunt", controls: "מצביע Wii Remote (או D-pad/Nunchuk) + B (כמו הדק), HOME ליציאה", tags: ["IR Pointer", "No Sensor Bar fallback"],
+  { n: "06", name: "Duck Hunt", icon: "🦆", controls: "מצביע Wii Remote (או D-pad/Nunchuk) + B (כמו הדק), HOME ליציאה", tags: ["IR Pointer", "בלי חיישן"],
     desc: "כמה מטרות נעות על המסך בו-זמנית, מקפצות בין הקצוות. מכוונים את השלט ולוחצים B (כמו הדק אקדח) כדי לפגוע. המשחק מציג אחוז דיוק (accuracy) לפי היחס בין פגיעות ליריות. בלי פס חיישנים המשחק עובר אוטומטית לשליטה עם D-pad/Nunchuk." },
-  { n: "07", name: "Rhythm Tap", controls: "A בזמן הנכון, HOME ליציאה", tags: ["Rhythm"],
+  { n: "07", name: "Rhythm Tap", icon: "🎵", controls: "A בזמן הנכון, HOME ליציאה", tags: ["קצב"],
     desc: "סמן נע קדימה ואחורה לאורך פס; יש \"אזור פגיעה\" מסומן במרכז הפס. לוחצים A בדיוק כשהסמן נמצא בתוך האזור הזה. פגיעות רצופות בונות קומבו (combo) וניקוד גבוה יותר; ככל שמתקדמים בקומבו, הסמן זז מהר יותר ודורש דיוק רב יותר." },
-  { n: "08", name: "Simon Says", controls: "כפתורים 1 / 2 / A / B, HOME ליציאה", tags: ["Memory"],
+  { n: "08", name: "Simon Says", icon: "🧠", controls: "כפתורים 1 / 2 / A / B, HOME ליציאה", tags: ["זיכרון"],
     desc: "המשחק \"מציג\" רצף כפתורים (צבעים) אחד אחרי השני - צופים ברצף ואז חוזרים עליו באותו סדר בדיוק. כל סבב שעוברים בהצלחה מוסיף עוד כפתור אחד לרצף, כך שהמשחק הולך ונהיה קשה יותר. טעות אחת = סוף משחק." },
-  { n: "09", name: "Island Adventure", controls: "Balance Board להיגוי, A בשלט לקפיצה, HOME ליציאה", tags: ["Balance Board", "Multi-level"],
+  { n: "09", name: "Island Adventure", icon: "🏝️", controls: "Balance Board להיגוי, A בשלט לקפיצה, HOME ליציאה", tags: ["Balance Board", "רב-שלבי"],
     desc: "המשחק המורכב ביותר בריפו: 3 \"עולמות\" (Meadow / Desert / Volcano), כל אחד מהיר וצפוף יותר מהקודם. מטים משקל ימינה/שמאלה על ה-Balance Board כדי לעבור בין 3 מסלולים ולהתחמק ממכשולים, ולוחצים A בשלט כדי לקפוץ מעל מכשולים נמוכים. אחרי כמות מסוימת של מכשולים שעברו בהצלחה בעולם נתון, נפתח \"שער\" - צריך לעמוד ממורכזים (משקל שווה משני הצדדים) על הלוח במשך כ-1.5 שניות כדי לפתוח אותו ולעבור לעולם הבא. יש 3 חיים; סיום העולם השלישי = ניצחון על כל ההרפתקה." },
-  { n: "10", name: "Connect Four - Party Edition", controls: "A להתחיל/להטיל כלי, Left/Right להזזה, HOME ליציאה", tags: ["2 Players", "Wii Party style"],
+  { n: "10", name: "Connect Four - Party Edition", icon: "🔴", controls: "A להתחיל/להטיל כלי, Left/Right להזזה, HOME ליציאה", tags: ["2 שחקנים", "מסיבה"],
     desc: "גרסה מסיבתית בסגנון Wii Party: מסך פתיחה מונפש עם כותרת מתחלפת בצבעים, ואז משחק אחוז (best of 3) - מי שמנצח 2 סבבים ראשון מנצח. בכל סבב, לוח 7x6 צבעוני - מזיזים את חץ הבחירה בין העמודות ולוחצים A כדי \"להפיל\" כלי לתוך העמודה; הראשון שמסדר 4 ברצף (אופקי/אנכי/אלכסוני) מנצח את הסבב. לוח תוצאות בין הסבבים, רטט (rumble) בשלט על כל הטלה וניצחון, ומסך ניצחון חגיגי עם קונפטי בסיום המשחק." },
-  { n: "11", name: "Whack-a-Mole", controls: "מצביע Wii Remote (או D-pad/Nunchuk) + A לחביטה, HOME ליציאה", tags: ["IR Pointer", "Reflex", "No Sensor Bar fallback"],
+  { n: "11", name: "Whack-a-Mole", icon: "🔨", controls: "מצביע Wii Remote (או D-pad/Nunchuk) + A לחביטה, HOME ליציאה", tags: ["IR Pointer", "רפלקסים", "בלי חיישן"],
     desc: "6 \"חורים\" קבועים מוצגים על המסך. חפרפרת אקראית קופצת מאחד מהחורים לזמן קצר ובלתי צפוי. מכוונים את השלט ולוחצים A עליה לפני שהיא חוזרת למטה. חפרפרת שלא נחבטה בזמן נספרת בנפרד כ\"פוספסה\", כך שאפשר לעקוב אחרי הדיוק. בלי פס חיישנים המשחק עובר אוטומטית לשליטה עם D-pad/Nunchuk." },
-  { n: "12", name: "Ski Slalom", controls: "הטיית Balance Board שמאלה/ימינה להיגוי, קדימה למהירות, HOME בשלט מסונכרן", tags: ["Balance Board", "Racing"],
+  { n: "12", name: "Ski Slalom", icon: "⛷️", controls: "הטיית Balance Board שמאלה/ימינה להיגוי, קדימה למהירות, HOME בשלט מסונכרן", tags: ["Balance Board", "מרוץ"],
     desc: "שערי סלאלום מגיעים ברצף מלמעלה עם פער פתוח באמצע כל שער. מטים משקל שמאלה/ימינה על ה-Balance Board כדי להזיז את השחקן לתוך הפער של כל שער שמגיע. הטיה קדימה מגבירה את המהירות - יותר נקודות, אבל גם פחות זמן תגובה לשער הבא. יש 3 חיים; פספוס שער עולה בחיים." },
-  { n: "13", name: "USB Keyboard Demo", controls: "מקלדת USB רגילה מחוברת ל-Wii, HOME/ESC ליציאה", tags: ["Keyboard", "Utility"],
+  { n: "13", name: "USB Keyboard Demo", icon: "⌨️", controls: "מקלדת USB רגילה מחוברת ל-Wii, HOME/ESC ליציאה", tags: ["מקלדת", "כלי עזר"],
     desc: "מחברים מקלדת USB רגילה (חוטית) ליציאת ה-USB של הקונסולה, ומקלידים - האותיות מופיעות על המסך בזמן אמת. Backspace מוחק תו אחרון, Enter מנקה שורה. לא \"משחק\" קלאסי, אלא הדגמה שימושית שאפשר להשתמש בה בכל משחק אחר שדורש הקלדת טקסט (למשל שם לשיא ניקוד)." },
-  { n: "14", name: "No-Sensor Cursor", controls: "D-pad להזזה (או מקל Nunchuk), A ללחיצה, HOME ליציאה", tags: ["No Sensor Bar", "Utility"],
+  { n: "14", name: "No-Sensor Cursor", icon: "🖱️", controls: "D-pad להזזה (או מקל Nunchuk), A ללחיצה, HOME ליציאה", tags: ["בלי חיישן", "כלי עזר"],
     desc: "דוגמה טהורה ל\"עכבר\" חלופי שלא נוגע בכלל בפס חיישנים (Sensor Bar) - מזיזים סמן על המסך עם ה-D-pad של השלט, ואם מחובר Nunchuk אפשר להאיץ את התנועה עם המקל האנלוגי שלו. לוחצים A כדי לפגוע במטרה. אותה שליטה בדיוק כבר משולבת בתוך המשחקים 01, 06 ו-11 - היא קופצת שם אוטומטית לפעולה בכל פעם שאין קליטת IR תקינה, כך שהמשחק הזה בעיקר משמש כדוגמה עצמאית ופשוטה לטכניקה." },
 ];
 
-const grid = document.getElementById("grid");
-grid.innerHTML = games.map(g => `
-  <div class="card">
-    <span class="num">משחק ${g.n}</span>
-    <h3>${g.name}</h3>
-    <p class="desc">${g.desc}</p>
-    <div class="controls"><b>בקרים:</b> ${g.controls}</div>
-    <div class="tags">${g.tags.map(t => `<span class="tag">${t}</span>`).join("")}</div>
-  </div>
-`).join("");
+function renderGrid(filter) {
+  const grid = document.getElementById("grid");
+  const list = filter === "הכל" ? games : games.filter(g => g.tags.includes(filter));
+  grid.innerHTML = list.map(g => `
+    <div class="card">
+      <div class="card-top">
+        <div class="icon">${g.icon}</div>
+        <div>
+          <span class="num">משחק ${g.n}</span>
+          <h3>${g.name}</h3>
+        </div>
+      </div>
+      <p class="desc">${g.desc}</p>
+      <div class="controls"><b>בקרים:</b> ${g.controls}</div>
+      <div class="tags">${g.tags.map(t => `<span class="tag">${t}</span>`).join("")}</div>
+    </div>
+  `).join("");
+}
+
+const allTags = ["הכל", ...Array.from(new Set(games.flatMap(g => g.tags)))];
+const filtersEl = document.getElementById("filters");
+filtersEl.innerHTML = allTags.map((t, i) =>
+  `<button class="filter-btn${i === 0 ? " active" : ""}" data-tag="${t}">${t}</button>`
+).join("");
+filtersEl.addEventListener("click", (e) => {
+  const btn = e.target.closest(".filter-btn");
+  if (!btn) return;
+  filtersEl.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  renderGrid(btn.dataset.tag);
+});
+
+renderGrid("הכל");
 </script>
 
 </body>
