@@ -1,0 +1,8 @@
+<app version="1">
+  <name>Duck Hunt</name>
+  <coder>ayal408</coder>
+  <version>1.0</version>
+  <release_date>20260929000000</release_date>
+  <short_description>Shoot moving targets with the pointer</short_description>
+  <long_description>Point the Wii Remote at moving targets and press B (the trigger button) to shoot them. Tracks hits, shots and accuracy.</long_description>
+</app>

@@ -1,0 +1,8 @@
+<app version="1">
+  <name>Island Adventure</name>
+  <coder>ayal408</coder>
+  <version>1.0</version>
+  <release_date>20260929000000</release_date>
+  <short_description>3-world adventure: Balance Board + Wii Remote</short_description>
+  <long_description>Lean on the Balance Board to dodge lane obstacles, press A to jump low ones, and stand centered to open the gate to the next of 3 worlds.</long_description>
+</app>

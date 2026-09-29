@@ -1,0 +1,8 @@
+<app version="1">
+  <name>Swing Slash</name>
+  <coder>ayal408</coder>
+  <version>1.0</version>
+  <release_date>20260929000000</release_date>
+  <short_description>Swing the Wii Remote to slash enemies</short_description>
+  <long_description>An enemy appears - swing the Wii Remote hard before the timer runs out to slash it, using the Wiimote's accelerometer.</long_description>
+</app>

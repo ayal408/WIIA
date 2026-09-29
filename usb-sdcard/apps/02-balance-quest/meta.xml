@@ -1,0 +1,8 @@
+<app version="1">
+  <name>Balance Quest</name>
+  <coder>ayal408</coder>
+  <version>1.0</version>
+  <release_date>20260929000000</release_date>
+  <short_description>Shift your weight on the Balance Board</short_description>
+  <long_description>Stand on the Wii Balance Board and lean forward, back, left or right to match the requested direction before time runs out.</long_description>
+</app>

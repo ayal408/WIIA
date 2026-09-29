@@ -5,6 +5,8 @@ Channel) וגם באמולטור [Dolphin](https://dolphin-emu.org/). המשחק
 [devkitPro](https://devkitpro.org/) / devkitPPC / libogc, ומדגימים שימוש ב-Wii Remote (כולל
 מצביע ה-IR ותאוצה) וב-Wii Balance Board.
 
+> **הסבר "איך משחקים" לכל משחק (מטרה + בקרים) נמצא בקובץ [`HOWTOPLAY.md`](HOWTOPLAY.md).**
+
 > **הערה חשובה על זכויות יוצרים:** הריפו הזה מכיל אך ורק משחקים מקוריים שנכתבו כאן. אין כאן, ולא
 > יהיו כאן, קבצי ROM/ISO של משחקים מסחריים (כמו Mario), ולא הוראות להשגה או הרצה של עותקים פרוצים
 > של משחקים כאלה — זו הפרת זכויות יוצרים ואני לא עוזר עם זה. מה שכן יש כאן זה תהליך ה-Homebrew
@@ -24,8 +26,12 @@ games/
   08-simon-says/        משחק זיכרון (Simon) עם 4 כפתורים
   09-island-adventure/  משחק מורכב, 3 עולמות/שלבים - Balance Board + שלט יחד
   10-connect-four/      4 בשורה צבעוני לשני שחקנים על אותו שלט
+  11-whack-a-mole/      "היכה את החפרפרת" עם מצביע ה-IR
+  12-ski-slalom/        סלאלום סקי - היגוי רציף עם Balance Board
   template/             שלד ריק להתחלת משחק חדש
+usb-sdcard/apps/        תיקיית apps מוכנה להעתקה לכרטיס SD / USB (ראו "הרצה" למטה)
 .github/workflows/      בנייה אוטומטית ב-CI (Docker של devkitPro) לכל משחק
+HOWTOPLAY.md            הסבר קצר "איך משחקים" לכל משחק בריפו
 ```
 
 ## התקנת סביבת הפיתוח (Windows)
@@ -64,24 +70,26 @@ make
 
 ## הרצה
 
-### על Wii אמיתי (עם Homebrew Channel)
+### על Wii אמיתי (עם Homebrew Channel) - הדרך הכי מהירה, בלי לבנות כלום בעצמכם
 
-מכיוון שכבר יש לכם Homebrew Channel מותקן על ה-Wii:
+כל push לריפו מריץ בנייה אוטומטית ב-GitHub Actions, שגם אורזת תיקיית `apps` מוכנה עם כל
+המשחקים שהצליחו להיבנות (`boot.dol` + `meta.xml` לכל אחד):
 
-1. חברו כרטיס SD למחשב.
-2. צרו בכרטיס SD תיקייה `apps\<שם-המשחק>\` (למשל `apps\01-pointer-shooter\`).
-3. העתיקו לתוכה את הקובץ שנוצר בבנייה ושנו את שמו ל-`boot.dol`.
-4. (אופציונלי אך מומלץ) הוסיפו קובץ `meta.xml` קטן באותה תיקייה עם שם/תיאור המשחק, כדי שהוא
-   יופיע יפה ברשימת ה-Homebrew Channel:
-   ```xml
-   <app version="1">
-     <name>Pointer Shooter</name>
-     <coder>ayal408</coder>
-     <version>1.0</version>
-     <short_description>Aim with the Wiimote and shoot targets</short_description>
-   </app>
-   ```
-5. הכניסו את הכרטיס ל-Wii, פתחו את ה-Homebrew Channel, ובחרו את המשחק.
+1. בטאב **Actions** של הריפו, פתחו את ה-run האחרון (V בירוק).
+2. גללו למטה ל-**Artifacts**, והורידו את `wii-usb-apps`.
+3. חלצו את ה-zip - תקבלו תיקיית `apps` מוכנה.
+4. העתיקו את תיקיית `apps` לשורש כרטיס ה-SD או ה-USB שלכם (כך שיהיה `SD:/apps/...`).
+5. הכניסו את הכרטיס ל-Wii, פתחו את ה-Homebrew Channel - כל המשחקים יופיעו ברשימה עם שם ותיאור.
+
+### בנייה ידנית (אם רוצים לבנות רק משחק ספציפי, או שאין גישה ל-Actions)
+
+1. בנו את המשחק עם `make` (ראו "בנייה" למעלה) - זה ייצור קובץ `.dol`.
+2. בריפו יש כבר תיקיית `usb-sdcard/apps/<שם-המשחק>/` עם `meta.xml` מוכן לכל משחק - רק
+   העתיקו את קובץ ה-`.dol` שנוצר לתוכה ושנו את שמו ל-`boot.dol`.
+3. העתיקו את `usb-sdcard/apps` לכרטיס ה-SD/USB, בדיוק כמו למעלה.
+4. פתחו את ה-Homebrew Channel ובחרו את המשחק.
+
+(פירוט נוסף נמצא ב-`usb-sdcard/README.md`.)
 
 ### באמולטור Dolphin
 

@@ -1,0 +1,8 @@
+<app version="1">
+  <name>Pointer Shooter</name>
+  <coder>ayal408</coder>
+  <version>1.0</version>
+  <release_date>20260929000000</release_date>
+  <short_description>Aim with the Wii Remote and shoot targets</short_description>
+  <long_description>Point the Wii Remote at the TV and press A when the crosshair is inside the target zone to score.</long_description>
+</app>

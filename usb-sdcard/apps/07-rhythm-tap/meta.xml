@@ -1,0 +1,8 @@
+<app version="1">
+  <name>Rhythm Tap</name>
+  <coder>ayal408</coder>
+  <version>1.0</version>
+  <release_date>20260929000000</release_date>
+  <short_description>Tap A exactly on the beat</short_description>
+  <long_description>A marker sweeps back and forth across a bar; press A when it's inside the hit zone to score and build a combo. Speeds up over time.</long_description>
+</app>

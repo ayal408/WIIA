@@ -21,6 +21,8 @@ jobs:
           - games/08-simon-says
           - games/09-island-adventure
           - games/10-connect-four
+          - games/11-whack-a-mole
+          - games/12-ski-slalom
           - games/template
     steps:
       - uses: actions/checkout@v4
@@ -34,3 +36,34 @@ jobs:
         with:
           name: ${{ matrix.game }}-dol
           path: ${{ matrix.game }}/*.dol
+
+  package-usb:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all built .dol files
+        uses: actions/download-artifact@v4
+        with:
+          path: built
+
+      - name: Assemble SD/USB apps folder (boot.dol + meta.xml per game)
+        run: |
+          set -e
+          for dir in built/*-dol; do
+            game_slug=$(basename "$dir" | sed 's/games-//; s/-dol$//')
+            dest="usb-sdcard/apps/$game_slug"
+            if [ -d "$dest" ]; then
+              dol_file=$(find "$dir" -name '*.dol' | head -n1)
+              if [ -n "$dol_file" ]; then
+                cp "$dol_file" "$dest/boot.dol"
+              fi
+            fi
+          done
+
+      - name: Upload ready-to-copy USB/SD apps folder
+        uses: actions/upload-artifact@v4
+        with:
+          name: wii-usb-apps
+          path: usb-sdcard/apps
