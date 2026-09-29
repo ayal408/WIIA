@@ -10,20 +10,33 @@ jobs:
     container: devkitpro/devkitppc:latest
     strategy:
       matrix:
-        game:
-          - games/01-pointer-shooter
-          - games/02-balance-quest
-          - games/03-swing-slash
-          - games/04-hop-run
-          - games/05-quiz-buzzer
-          - games/06-duck-hunt
-          - games/07-rhythm-tap
-          - games/08-simon-says
-          - games/09-island-adventure
-          - games/10-connect-four
-          - games/11-whack-a-mole
-          - games/12-ski-slalom
-          - games/template
+        include:
+          - game: games/01-pointer-shooter
+            slug: 01-pointer-shooter
+          - game: games/02-balance-quest
+            slug: 02-balance-quest
+          - game: games/03-swing-slash
+            slug: 03-swing-slash
+          - game: games/04-hop-run
+            slug: 04-hop-run
+          - game: games/05-quiz-buzzer
+            slug: 05-quiz-buzzer
+          - game: games/06-duck-hunt
+            slug: 06-duck-hunt
+          - game: games/07-rhythm-tap
+            slug: 07-rhythm-tap
+          - game: games/08-simon-says
+            slug: 08-simon-says
+          - game: games/09-island-adventure
+            slug: 09-island-adventure
+          - game: games/10-connect-four
+            slug: 10-connect-four
+          - game: games/11-whack-a-mole
+            slug: 11-whack-a-mole
+          - game: games/12-ski-slalom
+            slug: 12-ski-slalom
+          - game: games/template
+            slug: template
     steps:
       - uses: actions/checkout@v4
 
@@ -34,7 +47,7 @@ jobs:
       - name: Upload .dol artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.game }}-dol
+          name: ${{ matrix.slug }}-dol
           path: ${{ matrix.game }}/*.dol
 
   package-usb:
