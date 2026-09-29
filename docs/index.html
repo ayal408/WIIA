@@ -110,7 +110,7 @@
     letter-spacing: 0.04em;
   }
   .card h3 { margin: 4px 0 8px; font-size: 1.15rem; }
-  .card p.desc { margin: 0 0 12px; color: var(--text-muted); font-size: 0.94rem; }
+  .card p.desc { margin: 0 0 12px; color: var(--text-muted); font-size: 0.94rem; line-height: 1.65; }
   .card .controls {
     font-size: 0.85rem;
     color: var(--text);
@@ -166,7 +166,6 @@
 
   <div class="links">
     <a href="https://github.com/ayal408/WIIA">קוד המקור ב-GitHub</a>
-    <a class="secondary" href="https://github.com/ayal408/WIIA/blob/main/HOWTOPLAY.md">מדריך "איך משחקים" מלא</a>
     <a class="secondary" href="https://github.com/ayal408/WIIA/actions">בניות אוטומטיות (Actions)</a>
   </div>
 </header>
@@ -175,15 +174,52 @@
   <div class="grid" id="grid"></div>
 
   <section class="howto">
-    <h2>איך משחקים בפועל על ה-Wii</h2>
+    <h2>איך מעבירים את המשחקים לWii בפועל</h2>
     <ol>
       <li>בטאב <a href="https://github.com/ayal408/WIIA/actions">Actions</a> בריפו, פתחו את
         ה-run האחרון שהצליח (סימן ✓ ירוק) והורידו את ה-artifact בשם
-        <code>wii-usb-apps</code>.</li>
-      <li>חלצו את ה-zip - תקבלו תיקיית <code>apps</code> מוכנה, עם תת-תיקייה לכל משחק.</li>
-      <li>העתיקו את תיקיית <code>apps</code> לשורש כרטיס SD או USB (כך שיהיה <code>SD:/apps/...</code>).</li>
-      <li>הכניסו את הכרטיס ל-Wii, פתחו את ה-Homebrew Channel - כל משחק יופיע ברשימה עם שם ותיאור.</li>
+        <code>wii-usb-apps</code>. זהו קובץ zip שנבנה אוטומטית מהקוד - אין צורך להתקין שום
+        דבר במחשב כדי לקבל אותו.</li>
+      <li>חלצו את ה-zip - תקבלו תיקיית <code>apps</code> מוכנה, ובתוכה תת-תיקייה לכל משחק
+        (למשל <code>apps/01-pointer-shooter</code>), וכל אחת כבר מכילה את קובץ המשחק
+        (<code>boot.dol</code>) ואת שם/תיאור המשחק (<code>meta.xml</code>).</li>
+      <li>העתיקו את כל תיקיית <code>apps</code> לשורש כרטיס ה-SD או ה-USB שלכם, כך שהנתיב
+        יהיה <code>SD:/apps/...</code> (או <code>USB:/apps/...</code>) - לא בתוך תיקייה
+        נוספת.</li>
+      <li>הכניסו את הכרטיס ל-Wii ופתחו את ה-Homebrew Channel. כל משחק שהעתקתם יופיע ברשימה
+        עם שם ותיאור, ואפשר לבחור ולהריץ אותו ישירות.</li>
+      <li>לא חייבים להעתיק את כל 12 המשחקים - אפשר לבחור רק חלק מתת-התיקיות בתוך
+        <code>apps</code>.</li>
     </ol>
+  </section>
+
+  <section class="howto">
+    <h2>איך מחברים ומסנכרנים Wii Remote ו-Balance Board</h2>
+    <p style="color:var(--text-muted)">
+      פותחים את המכסה בתחתית ה-Wii Remote (או ה-Balance Board) ולוחצים על כפתור ה-SYNC
+      האדום הקטן שבפנים. תוך כמה שניות לוחצים גם על כפתור ה-SYNC בקונסולת ה-Wii עצמה
+      (מתחת למכסה כרטיס ה-SD בדגמים חדשים, או ליד יציאות ה-USB בדגמים ישנים). הפעולה
+      צריכה להתבצע רק פעם אחת לכל בקר - הוא "זוכר" את הקונסולה מכאן והלאה ומתחבר אוטומטית
+      כשמדליקים אותו ליד ה-Wii.
+    </p>
+    <p style="color:var(--text-muted)">
+      ה-Balance Board מחובר בדיוק באותה שיטה (יש לו כפתור SYNC דומה בתא הסוללות), אבל
+      מבחינת המשחק הוא מזוהה כסוג שונה של בקר ("הרחבה") עם 4 חיישני משקל - קדמי-שמאל,
+      קדמי-ימין, אחורי-שמאל ואחורי-ימין - ולא כשלט רגיל. משחקים שדורשים Balance Board
+      (02, 09, 12) יציגו הודעת המתנה עד שהוא מסתנכרן ומזוהה.
+    </p>
+  </section>
+
+  <section class="howto">
+    <h2>הערות כלליות שחלות על כל 12 המשחקים</h2>
+    <ul style="color:var(--text-muted)">
+      <li>כפתור <b>HOME</b> תמיד יוצא חזרה ל-Homebrew Channel, בכל משחק.</li>
+      <li>אין שמירת הישגים/ניקוד בין הרצות - כל משחק מתחיל מאפס בכל פעם שפותחים אותו מחדש.</li>
+      <li>כל המשחקים נכתבו ב-C עם devkitPro/libogc ורצים גם על Wii אמיתי (עם Homebrew
+        Channel) וגם באמולטור <a href="https://dolphin-emu.org/">Dolphin</a>.</li>
+      <li>אפשר לראות את קוד המקור המלא (עם הסברים בראש כל קובץ) בתיקיית
+        <code>games/&lt;שם-המשחק&gt;/source/main.c</code> בריפו.</li>
+    </ul>
   </section>
 </main>
 
@@ -193,18 +229,30 @@
 
 <script>
 const games = [
-  { n: "01", name: "Pointer Shooter", desc: "כוונון ויריה למטרות עם מצביע ה-IR של השלט.", controls: "מצביע + A", tags: ["IR Pointer"] },
-  { n: "02", name: "Balance Quest", desc: "מטים משקל בכיוון המבוקש לפני שנגמר הזמן.", controls: "Balance Board", tags: ["Balance Board"] },
-  { n: "03", name: "Swing Slash", desc: "מנפנפים את השלט בחוזקה כדי \"לחתוך\" אויבים.", controls: "נפנוף (תאוצה)", tags: ["Accelerometer"] },
-  { n: "04", name: "Hop and Run", desc: "ריצה אינסופית - קופצים מעל מכשולים שמגיעים מהר יותר ויותר.", controls: "A לקפיצה", tags: ["Platformer"] },
-  { n: "05", name: "Quiz Buzzer", desc: "עד 4 שחקנים, כל אחד עם שלט משלו - מי לוחץ A ראשון מנצח בסבב.", controls: "עד 4 שלטים", tags: ["Party", "Multiplayer"] },
-  { n: "06", name: "Duck Hunt", desc: "מטרות נעות על המסך - מכוונים ויורים עם כפתור ה-B.", controls: "מצביע + B", tags: ["IR Pointer"] },
-  { n: "07", name: "Rhythm Tap", desc: "לוחצים A בדיוק כשהסמן בתוך אזור הפגיעה, בונים קומבו.", controls: "A בזמן", tags: ["Rhythm"] },
-  { n: "08", name: "Simon Says", desc: "רצף כפתורים שגדל כל סבב - צופים וחוזרים עליו.", controls: "1 / 2 / A / B", tags: ["Memory"] },
-  { n: "09", name: "Island Adventure", desc: "3 עולמות, מהירים יותר ויותר - נמנעים ממכשולים עם הטיית משקל וקופצים עם A, ופותחים שער בעמידה ממורכזת.", controls: "Balance Board + A", tags: ["Balance Board", "Multi-level"] },
-  { n: "10", name: "Connect Four", desc: "4 בשורה קלאסי וצבעוני לשני שחקנים על אותו שלט.", controls: "Left/Right + A", tags: ["2 Players"] },
-  { n: "11", name: "Whack-a-Mole", desc: "חפרפרות קופצות אקראית מ-6 חורים - חובטים בהן עם מצביע ה-IR לפני שהן חוזרות למטה.", controls: "מצביע + A", tags: ["IR Pointer", "Reflex"] },
-  { n: "12", name: "Ski Slalom", desc: "היגוי רציף בין שערי סלאלום עם הטיית משקל; הטיה קדימה = מהירות גבוהה יותר.", controls: "Balance Board", tags: ["Balance Board", "Racing"] },
+  { n: "01", name: "Pointer Shooter", controls: "מצביע Wii Remote + A ליריה, HOME ליציאה", tags: ["IR Pointer"],
+    desc: "על המסך מופיעה מטרה עגולה במיקום אקראי. מכוונים את השלט אליה ולוחצים A כשהכוונת (crosshair) בתוך המעגל. פגיעה = נקודה + מטרה חדשה במיקום חדש. פספוס נספר בנפרד, כדי לראות כמה מדויקים אתם." },
+  { n: "02", name: "Balance Quest", controls: "Wii Balance Board (הטיית משקל), HOME בשלט מסונכרן", tags: ["Balance Board"],
+    desc: "המשחק מבקש כיוון (קדימה / אחורה / שמאלה / ימינה / מרכז) - צריך להטות את המשקל על הלוח בהתאם, תוך כ-3 שניות. הטיה נכונה = נקודה + כיוון חדש נבחר אקראית. יש חלון זמן (טיימר) לכל סבב, כך שצריך להגיב מהר." },
+  { n: "03", name: "Swing Slash", controls: "נפנוף חד של ה-Wii Remote, HOME ליציאה", tags: ["Accelerometer"],
+    desc: "מדי פעם מופיע \"אויב\" על המסך - צריך לנפנף את השלט בחוזקה (לא רק ללחוץ כפתור!) לפני שנגמר הזמן, כדי \"לחתוך\" אותו. המשחק קורא בזמן אמת את חיישן התאוצה בתוך השלט כדי לזהות נפנוף אמיתי." },
+  { n: "04", name: "Hop and Run", controls: "A לקפיצה, HOME ליציאה", tags: ["Platformer"],
+    desc: "הדמות רצה אוטומטית קדימה ללא הפסקה; מכשולים מגיעים מימין למסך בקצב הולך וגובר. לוחצים A ברגע הנכון כדי לקפוץ מעליהם. ככל שהניקוד עולה, גם המהירות עולה. נגיעה במכשול מסיימת את הריצה - אפשר להתחיל שוב מיד עם A." },
+  { n: "05", name: "Quiz Buzzer", controls: "עד 4 שלטי Wii Remote, 1 לפתיחת סבב, A לבאזז, HOME ליציאה", tags: ["Party", "Multiplayer"],
+    desc: "משחק מסיבה עד 4 שחקנים, כל אחד מחזיק שלט משלו. שחקן 1 פותח סבב עם כפתור 1, ואז כולם מנסים ללחוץ A הכי מהר שאפשר - הראשון שלוחץ מקבל את הנקודה של הסבב. מצוין למשחק קבוצתי מול הטלוויזיה." },
+  { n: "06", name: "Duck Hunt", controls: "מצביע Wii Remote + B (כמו הדק), HOME ליציאה", tags: ["IR Pointer"],
+    desc: "כמה מטרות נעות על המסך בו-זמנית, מקפצות בין הקצוות. מכוונים את השלט ולוחצים B (כמו הדק אקדח) כדי לפגוע. המשחק מציג אחוז דיוק (accuracy) לפי היחס בין פגיעות ליריות." },
+  { n: "07", name: "Rhythm Tap", controls: "A בזמן הנכון, HOME ליציאה", tags: ["Rhythm"],
+    desc: "סמן נע קדימה ואחורה לאורך פס; יש \"אזור פגיעה\" מסומן במרכז הפס. לוחצים A בדיוק כשהסמן נמצא בתוך האזור הזה. פגיעות רצופות בונות קומבו (combo) וניקוד גבוה יותר; ככל שמתקדמים בקומבו, הסמן זז מהר יותר ודורש דיוק רב יותר." },
+  { n: "08", name: "Simon Says", controls: "כפתורים 1 / 2 / A / B, HOME ליציאה", tags: ["Memory"],
+    desc: "המשחק \"מציג\" רצף כפתורים (צבעים) אחד אחרי השני - צופים ברצף ואז חוזרים עליו באותו סדר בדיוק. כל סבב שעוברים בהצלחה מוסיף עוד כפתור אחד לרצף, כך שהמשחק הולך ונהיה קשה יותר. טעות אחת = סוף משחק." },
+  { n: "09", name: "Island Adventure", controls: "Balance Board להיגוי, A בשלט לקפיצה, HOME ליציאה", tags: ["Balance Board", "Multi-level"],
+    desc: "המשחק המורכב ביותר בריפו: 3 \"עולמות\" (Meadow / Desert / Volcano), כל אחד מהיר וצפוף יותר מהקודם. מטים משקל ימינה/שמאלה על ה-Balance Board כדי לעבור בין 3 מסלולים ולהתחמק ממכשולים, ולוחצים A בשלט כדי לקפוץ מעל מכשולים נמוכים. אחרי כמות מסוימת של מכשולים שעברו בהצלחה בעולם נתון, נפתח \"שער\" - צריך לעמוד ממורכזים (משקל שווה משני הצדדים) על הלוח במשך כ-1.5 שניות כדי לפתוח אותו ולעבור לעולם הבא. יש 3 חיים; סיום העולם השלישי = ניצחון על כל ההרפתקה." },
+  { n: "10", name: "Connect Four", controls: "Left/Right להזזת הבוחר, A להטלת כלי, HOME ליציאה", tags: ["2 Players"],
+    desc: "לוח קלאסי 7 עמודות על 6 שורות, בצבע. שני שחקנים חולקים שלט אחד ומתחלפים בתורות. כל שחקן מזיז את חץ הבחירה בין העמודות עם Left/Right ולוחץ A כדי \"להפיל\" כלי (אדום או צהוב, לפי התור) לתוך העמודה שנבחרה. הראשון שמצליח לסדר 4 כלים ברצף - אופקי, אנכי, או באלכסון - מנצח." },
+  { n: "11", name: "Whack-a-Mole", controls: "מצביע Wii Remote + A לחביטה, HOME ליציאה", tags: ["IR Pointer", "Reflex"],
+    desc: "6 \"חורים\" קבועים מוצגים על המסך. חפרפרת אקראית קופצת מאחד מהחורים לזמן קצר ובלתי צפוי. מכוונים את השלט ולוחצים A עליה לפני שהיא חוזרת למטה. חפרפרת שלא נחבטה בזמן נספרת בנפרד כ\"פוספסה\", כך שאפשר לעקוב אחרי הדיוק." },
+  { n: "12", name: "Ski Slalom", controls: "הטיית Balance Board שמאלה/ימינה להיגוי, קדימה למהירות, HOME בשלט מסונכרן", tags: ["Balance Board", "Racing"],
+    desc: "שערי סלאלום מגיעים ברצף מלמעלה עם פער פתוח באמצע כל שער. מטים משקל שמאלה/ימינה על ה-Balance Board כדי להזיז את השחקן לתוך הפער של כל שער שמגיע. הטיה קדימה מגבירה את המהירות - יותר נקודות, אבל גם פחות זמן תגובה לשער הבא. יש 3 חיים; פספוס שער עולה בחיים." },
 ];
 
 const grid = document.getElementById("grid");
