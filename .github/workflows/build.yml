@@ -27,13 +27,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Diagnose devkitPro / libogc layout
-        run: |
-          echo "--- wii_rules content ---"
-          cat "$DEVKITPPC/wii_rules" || true
-          echo "--- base_rules content ---"
-          cat "$DEVKITPPC/base_rules" || true
-
       - name: Build ${{ matrix.game }}
         working-directory: ${{ matrix.game }}
         run: make -j$(nproc)
