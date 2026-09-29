@@ -1,0 +1,29 @@
+name: Build Wii homebrew games
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: devkitpro/devkitppc:latest
+    strategy:
+      matrix:
+        game:
+          - games/01-pointer-shooter
+          - games/02-balance-quest
+          - games/03-swing-slash
+          - games/template
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build ${{ matrix.game }}
+        working-directory: ${{ matrix.game }}
+        run: make -j$(nproc)
+
+      - name: Upload .dol artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.game }}-dol
+          path: ${{ matrix.game }}/*.dol
