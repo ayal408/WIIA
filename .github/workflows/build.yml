@@ -20,6 +20,7 @@ jobs:
           - games/07-rhythm-tap
           - games/08-simon-says
           - games/09-island-adventure
+          - games/10-connect-four
           - games/template
     steps:
       - uses: actions/checkout@v4

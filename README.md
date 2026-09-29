@@ -23,6 +23,7 @@ games/
   07-rhythm-tap/        משחק קצב - לחיצת A בדיוק בזמן הנכון
   08-simon-says/        משחק זיכרון (Simon) עם 4 כפתורים
   09-island-adventure/  משחק מורכב, 3 עולמות/שלבים - Balance Board + שלט יחד
+  10-connect-four/      4 בשורה צבעוני לשני שחקנים על אותו שלט
   template/             שלד ריק להתחלת משחק חדש
 .github/workflows/      בנייה אוטומטית ב-CI (Docker של devkitPro) לכל משחק
 ```
