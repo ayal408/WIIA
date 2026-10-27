@@ -1,5 +1,6 @@
 chrome.runtime.onMessage.addListener((m,s,reply)=>{
  if(s.id!==chrome.runtime.id)return;
+ if(m.type==='tracking'){chrome.tabs.create({url:chrome.runtime.getURL('tracking.html')});reply({ok:true});}
  if(m.type==='studio'){chrome.tabs.create({url:chrome.runtime.getURL('studio.html')});reply({ok:true});}
  if(m.type==='stop'){chrome.tts.stop();reply({ok:true});}
  if(m.type==='speak' && typeof m.text==='string'){
