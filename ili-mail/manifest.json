@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Ili Mail — אילי מייל",
-  "version": "0.1.0",
-  "description": "כלי קול וקריאה בעברית בתוך Gmail: הכתבה, הקראה, העתקת שיחה והודעות קוליות.",
+  "version": "0.2.0",
+  "description": "עיצוב אישי ל־Gmail, תצוגת שיחה כצ׳אט וכלי קול בעברית.",
   "permissions": [
     "storage",
     "tts"
@@ -28,6 +28,7 @@
         "https://mail.google.com/*"
       ],
       "js": [
+        "design.js",
         "content.js"
       ],
       "run_at": "document_idle"
