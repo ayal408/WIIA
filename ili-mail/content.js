@@ -1,0 +1,24 @@
+(()=>{
+ if(document.getElementById('ili-mail-root'))return;
+ const host=document.createElement('div');host.id='ili-mail-root';host.style.cssText='position:fixed;bottom:22px;right:22px;z-index:2147483000';
+ const root=host.attachShadow({mode:'closed'});root.innerHTML=`<style>*{box-sizing:border-box}section{width:min(340px,calc(100vw - 44px));max-height:75vh;overflow:auto;background:#fff;border:1px solid #ded8f1;border-radius:20px;padding:20px;margin-bottom:10px;box-shadow:0 12px 50px #20104433;color:#292137;font:15px Arial;direction:rtl}h2{margin:0;color:#6049bb}p{line-height:1.6}button{font:14px Arial;border:0;border-radius:10px;padding:11px;background:#f0ebfa;color:#49338e;cursor:pointer;margin:4px}button:focus-visible{outline:3px solid #21a79b}#toggle{background:#6550c8;color:white;padding:13px 19px;box-shadow:0 4px 18px #33206633}textarea{width:100%;min-height:90px;font:15px Arial;resize:vertical;border:1px solid #cfc6df;border-radius:8px;padding:8px}small{display:block;line-height:1.5;color:#6a6075}[hidden]{display:none!important}#status{min-height:22px;color:#6240a1}</style><section hidden aria-label="כלי אילי מייל"><h2>אילי מייל</h2><p>כלים קטנים למייל נוח יותר</p><button id="read">הקראת טקסט מסומן / שיחה</button><button id="stop">עצירת הקראה</button><button id="copy">העתקת השיחה</button><button id="dictate">הכתבה קולית</button><button id="studio">הקלטת הודעה קולית</button><div id="dictation" hidden><p>ההכתבה מוצגת כאן לבדיקה לפני העתקה.</p><textarea aria-label="תוצאת הכתבה"></textarea><button id="copy-dictation">העתקת ההכתבה</button><small>הדביקי את הטקסט במייל במקום הרצוי.</small></div><p id="status" role="status" aria-live="polite"></p><small>הכתבה עשויה להשתמש בשירות הזיהוי של הדפדפן ולהעביר אליו קול. לא מתבצעת שליחת מייל אוטומטית.</small></section><button id="toggle" aria-expanded="false">✦ אילי מייל</button>`;
+ document.documentElement.append(host);const $=s=>root.querySelector(s),status=t=>$('#status').textContent=t;let selected='',recognition=null,active=false;
+ document.addEventListener('selectionchange',()=>{const t=window.getSelection()?.toString().trim();if(t)selected=t;});
+ const visible=e=>!!e.getClientRects().length;
+ function thread(){const main=document.querySelector('[role="main"]');if(!main)return '';return [...main.querySelectorAll('.a3s')].filter(visible).map(e=>e.innerText.trim()).filter(Boolean).join('\n\n────────\n\n');}
+ async function copy(text){if(!text){status('לא נמצא תוכן. פתחי שיחה והרחיבי את ההודעות הרצויות.');return;}try{await navigator.clipboard.writeText(text);status('הטקסט הועתק');}catch{status('ההעתקה נחסמה. נסי שוב כשהחלון פעיל.');}}
+ $('#toggle').onclick=()=>{const panel=$('section');panel.hidden=!panel.hidden;$('#toggle').setAttribute('aria-expanded',String(!panel.hidden));};
+ $('#read').onclick=async()=>{const text=selected||thread();selected='';if(!text){status('סמני טקסט בעמוד או פתחי שיחה.');return;}try{const r=await chrome.runtime.sendMessage({type:'speak',text});status(r?.ok?'ההקראה הופעלה':r?.error||'לא ניתן להפעיל הקראה');}catch{status('יש לרענן את Gmail לאחר עדכון התוסף.');}};
+ $('#stop').onclick=()=>chrome.runtime.sendMessage({type:'stop'});$('#copy').onclick=()=>copy(thread());$('#copy-dictation').onclick=()=>copy($('textarea').value);
+ $('#studio').onclick=()=>chrome.runtime.sendMessage({type:'studio'});
+ $('#dictate').onclick=async()=>{
+ if(active){recognition.stop();return;}
+ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){status('זיהוי דיבור אינו נתמך בדפדפן הזה.');return;}
+ const o=await chrome.storage.local.get({language:'he-IL'});recognition=new SR();recognition.lang=o.language;recognition.continuous=true;recognition.interimResults=false;
+ recognition.onstart=()=>{active=true;$('#dictate').textContent='עצירת הכתבה';status('מקשיבה…');};
+ recognition.onresult=e=>{for(let i=e.resultIndex;i<e.results.length;i++)if(e.results[i].isFinal)$('textarea').value+=( $('textarea').value?' ':'')+e.results[i][0].transcript;};
+ recognition.onerror=e=>status(e.error==='not-allowed'?'לא התקבלה הרשאת מיקרופון. בדקי הרשאות האתר.':'ההכתבה נעצרה: '+e.error);
+ recognition.onend=()=>{active=false;$('#dictate').textContent='הכתבה קולית';};$('#dictation').hidden=false;try{recognition.start();}catch{status('לא ניתן להתחיל הכתבה כרגע.');}
+ };
+ window.addEventListener('pagehide',()=>recognition?.abort(),{once:true});
+})();
