@@ -6,14 +6,15 @@ class Element{
  attachShadow(){this.shadow=new Element('shadow');this.shadow.nodes={};this.shadow.querySelector=s=>this.shadow.nodes[s]||null;Object.defineProperty(this.shadow,'innerHTML',{set:html=>{for(const [,id]of html.matchAll(/id="([^"]+)"/g)){const el=new Element();el.hidden=['drawer','updated','older','settings-page'].includes(id);this.shadow.nodes['#'+id]=el;}}});return this.shadow;}
 }
 function setup(){
+ const blobs=[];let downloadCount=0;
  const html=new Element('html'),body=new Element('body'),events={};let data={},changeListener;let rows=[];let copied='';const source={querySelectorAll:()=>rows};
- const document={documentElement:html,body,activeElement:null,createElement:t=>new Element(t),querySelector:s=>s==='[role="main"]'?source:s==='[role="main"] h2.hP'?{textContent:'בדיקת שיחה'}:null,querySelectorAll:()=>[]};
+ const document={documentElement:html,body,activeElement:null,createElement:t=>{const el=new Element(t);if(t==='a'){el.click=()=>downloadCount++;el.remove=()=>{};}return el;},querySelector:s=>s==='[role="main"]'?source:s==='[role="main"] h2.hP'?{textContent:'בדיקת שיחה'}:null,querySelectorAll:()=>[]};
  const window={addEventListener:(k,f)=>events[k]=f};const location={href:'https://mail.google.com/mail/u/0/#inbox/one'};
  const chrome={storage:{local:{get:async defaults=>({...defaults,...data}),set:async o=>{Object.assign(data,o);}},onChanged:{addListener:f=>changeListener=f}}};
- const context={window,document,chrome,location,MutationObserver:class{observe(){}disconnect(){}},navigator:{clipboard:{writeText:async t=>copied=t}},setTimeout,clearTimeout};
+ const context={URL:{createObjectURL:blob=>{blobs.push(blob);return 'blob:test'},revokeObjectURL(){}},Blob,window,document,chrome,location,MutationObserver:class{observe(){}disconnect(){}},navigator:{clipboard:{writeText:async t=>copied=t}},setTimeout,clearTimeout};
  vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../design.js'),'utf8'),context);
  const host=html.children.find(e=>e.id==='ili-mail-design'),style=html.children.find(e=>e.id==='ili-mail-theme'),nodes=host.shadow.nodes;
- return {window,location,events,style,nodes,source,setRows:items=>{rows=items.map((m,i)=>({innerText:m.text,getClientRects:()=>m.hidden?[]:[{}],closest:()=>({querySelector:s=>s==='.gD[email]'?{textContent:m.sender||'Sender',getAttribute:k=>k==='email'?m.email||'sender@example.com':null}:s==='.g3'?{textContent:'27/10',getAttribute:()=>null}:null})}));},change:o=>{for(const [k,v]of Object.entries(o))data[k]=v;changeListener(Object.fromEntries(Object.entries(o).map(([k,v])=>[k,{newValue:v}])),'local');},getCopied:()=>copied,getData:()=>data};
+ return {blobs,downloads:()=>downloadCount,window,location,events,style,nodes,source,setRows:items=>{rows=items.map((m,i)=>({innerText:m.text,getClientRects:()=>m.hidden?[]:[{}],closest:()=>({querySelector:s=>s==='.gD[email]'?{textContent:m.sender||'Sender',getAttribute:k=>k==='email'?m.email||'sender@example.com':null}:s==='.g3'?{textContent:'27/10',getAttribute:()=>null}:null})}));},change:o=>{for(const [k,v]of Object.entries(o))data[k]=v;changeListener(Object.fromEntries(Object.entries(o).map(([k,v])=>[k,{newValue:v}])),'local');},getCopied:()=>copied,getData:()=>data};
 }
 test('chat excludes hidden bodies, treats message markup as text, filters, and expands older messages',async()=>{
  const app=setup();await Promise.resolve();app.setRows([...Array.from({length:7},(_,i)=>({text:'message '+i})),{text:'secret',hidden:true},{text:'<img src=x onerror=alert(1)>',sender:'<b>sender</b>'}]);app.window.IliMailDesign.open('chat');
@@ -27,3 +28,5 @@ test('appearance updates live, original reset removes all Gmail CSS, own identit
 test('long bodies collapse, navigation clears stale conversation, close restores focus',async()=>{
  const app=setup();await Promise.resolve();app.setRows([{text:'x'.repeat(1200)}]);const trigger=new Element('button');app.window.IliMailDesign.open('chat',trigger);assert.equal(app.nodes['#messages'].children[0].children.at(-1).tag,'details');app.setRows([]);app.location.href='#inbox';app.events.hashchange();assert.equal(app.nodes['#messages'].children[0].className,'empty');app.nodes['#close'].onclick();assert.equal(app.nodes['#drawer'].hidden,true);assert.equal(trigger.focused,true);
 });
+
+test('text export contains loaded messages only, preserving literal text',async()=>{const app=setup();await Promise.resolve();app.setRows([{text:'<script>bad</script>'},{text:'hidden',hidden:true}]);app.window.IliMailDesign.open('chat');app.nodes['#export'].onclick();assert.equal(app.downloads(),1);const text=await app.blobs[0].text();assert.ok(text.includes('<script>bad</script>'));assert.ok(!text.includes('hidden'));assert.equal(app.blobs[0].type,'text/plain;charset=utf-8');});
