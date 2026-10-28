@@ -1,0 +1,45 @@
+name: Download file
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: "Direct download URL"
+        required: true
+        type: string
+      filename:
+        description: "File name, including extension"
+        required: true
+        default: "file.zip"
+        type: string
+
+permissions: {}
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Download
+        env:
+          FILE_URL: ${{ inputs.url }}
+          FILE_NAME: ${{ inputs.filename }}
+        run: |
+          mkdir -p output
+          if [[ "$FILE_NAME" == */* || "$FILE_NAME" == .* ]]; then
+            echo "Please provide a regular file name without folders."
+            exit 1
+          fi
+          curl --fail --location --retry 3 \
+            --proto '=https' --proto-redir '=https' \
+            --output "output/$FILE_NAME" \
+            -- "$FILE_URL"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: downloaded-file
+          path: output/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 7
